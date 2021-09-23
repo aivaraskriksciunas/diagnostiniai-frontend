@@ -1,0 +1,52 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header pb-2'>Visi vartotojai</div>
+
+      <div *ngIf='!isLoading'>
+        <div class='table-list list-hover'>
+          <div class='list-item' *ngFor='let user of userList.results'
+            (click)='selectUser( user )'>
+            {{ user.name }}
+          </div>
+
+          <div class='list-item'>
+            <app-paginator 
+              [total]='userList.count' 
+              [page]='currentPage' 
+              [itemsPerPage]='resultsPerPage' 
+              (pageChanged)='pageChanged( $event )'>
+            </app-paginator>
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf='isLoading'>
+        <app-dots-loader></app-dots-loader>
+      </div>
+  
+    </div>
+  </div>
+  
+  <div class='column'>
+
+    <div class='tile' *ngIf='selectedUser'>
+      <div class='tile-header'>Redaguoti vartotoją</div>
+  
+      <div class='tile-content'>
+        <app-user-edit (userSaved)='updateUserList(); deselectUser()' (userCanceled)='deselectUser()' [user]='selectedUser'></app-user-edit>
+      </div>
+    </div>
+  
+    <div class='tile'>
+      <div class='tile-header'>Naujas vartotojas</div>
+  
+      <div class='tile-content'>
+        <app-user-edit (userSaved)='updateUserList()'></app-user-edit>
+      </div>
+    </div>
+
+  </div>
+  
+</div>

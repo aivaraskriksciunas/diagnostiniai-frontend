@@ -1,0 +1,44 @@
+<div id='left-menu'>
+  <!-- <div class='menu-item'>
+    Pagrindinis
+  </div> -->
+
+  <app-expand-item title='Dalykai'>
+    <div class='menu-expand-item' *ngFor='let subject of subjectList' 
+        [routerLink]="['/subject', 'view', subject.id]">
+      {{ subject.name }}
+    </div>
+    <div class='menu-expand-item' [routerLink]="[ '/subject', 'add']" *ngIf='isAdmin'>
+      <span class='fa fa-plus menu-icon-light'></span> Naujas dalykas
+    </div>
+  </app-expand-item>
+  
+  <app-expand-item title='Klasės'>
+    <div class='menu-expand-item' *ngFor='let cl of classesList' 
+        [routerLink]="['/class', cl.id]">
+      {{ cl.grade }}{{ cl.letter }}
+    </div>
+    <div class='menu-expand-item' [routerLink]="[ '/class', 'add']" *ngIf='isAdmin'>
+      <span class='fa fa-plus menu-icon-light'></span> Nauja klasė
+    </div>
+    <div class='menu-expand-item' [routerLink]="[ '/class', 'upload']" *ngIf='isAdmin'>
+      <span class='fa fa-upload menu-icon-light'></span> Įkelti mokinių sąrašą
+    </div>
+  </app-expand-item>
+
+  <div class='menu-item' routerLink='/years' *ngIf='isAdmin'>
+    <i class="far fa-calendar-alt menu-icon"></i>Pusmečiai
+  </div>
+  <div class='menu-item' routerLink='/admin-exam' *ngIf='isAdmin'>
+    <i class="far fa-sticky-note menu-icon"></i>Atsiskaitomieji darbai
+  </div>
+  <div class='menu-item' routerLink='/reporting'>
+    <i class="far fa-chart-bar menu-icon"></i>Apžvalga
+  </div>
+  <div class='menu-item' routerLink='/users' *ngIf='isAdmin'>
+    <i class="fas fa-users menu-icon"></i>Vartotojai
+  </div>
+  <div class='menu-item' routerLink='/preferences' *ngIf='isAdmin'>
+    <i class="fas fa-cog menu-icon"></i>Nustatymai
+  </div>
+</div>

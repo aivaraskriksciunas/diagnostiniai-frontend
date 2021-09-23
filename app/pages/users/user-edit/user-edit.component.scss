@@ -1,0 +1,20 @@
+#view-password-btn {
+    color: rgb( 100, 100, 100 );
+    margin-left: 10px;
+
+}
+
+#view-password-btn:hover {
+    color: rgb( 150, 150, 150 );
+    cursor: pointer;
+}
+
+#username-suggest-link {
+    font-style: italic;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#username-suggest-link:hover {
+    color: rgb( 230, 100, 100 );
+}

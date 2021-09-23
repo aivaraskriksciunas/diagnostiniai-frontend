@@ -1,0 +1,54 @@
+<div class="page-content">
+  <div class="column">
+    <div class="tile" *ngIf='isLoading'>
+      <app-dots-loader></app-dots-loader>
+    </div>
+    <div class="tile" *ngIf='!isLoading'>
+
+      <div class='tile-header'>Redaguoti mokinį</div>
+
+      <div class='tile-content'>
+        <form class='form' [formGroup]='form'>
+          <!-- Student First Name Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Mokinio vardas: </label>
+            <div class='col-md-6'>
+              <input type='text' class='form-control' formControlName='first_name'>
+              <div class='form-error-container' 
+                  *ngIf="firstName.invalid && ( firstName.dirty || firstName.touched )">
+                <small class='form-text text-danger'
+                  *ngIf="firstName.errors.required">Mokinio vardas yra būtinas</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Student First Name Input -->
+          
+          <!-- Student Last Name Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Mokinio pavardė: </label>
+            <div class='col-md-6'>
+              <input type='text' class='form-control' formControlName='last_name'>
+              <div class='form-error-container' 
+                  *ngIf="lastName.invalid && ( lastName.dirty || lastName.touched )">
+                <small class='form-text text-danger'
+                  *ngIf="lastName.errors.required">Mokinio pavardė yra būtina</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Student Last Name Input -->
+          
+          <div class='row'>
+            <div class='col-md-3'></div>
+            <div class='form-buttons col'>
+              <div class='btn btn-success' (click)='saveStudent()'>Išsaugoti</div>
+              <div class='btn btn-primary' (click)='cancel()'>Atšaukti</div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+          
+    </div>
+  </div>
+</div>
+

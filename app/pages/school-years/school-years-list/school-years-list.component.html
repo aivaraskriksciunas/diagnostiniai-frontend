@@ -1,0 +1,91 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header'>Pusmečiai</div>
+      
+      <div class='tile-content'>
+
+        <div class='form-wide'>
+          <form>
+            <div class='form-group'>
+              <label>Mokslo metai: </label>
+              <select class='form-control' [(ngModel)]='selectedYearIndex' name='schoolYear' (change)='updateTrimesterDateFields()'>
+                <option *ngFor='let sy of schoolYears; let i = index' [value]='i'>
+                  {{ getYear( sy.start_date ) }} - 
+                  {{ getYear( sy.end_date ) }}
+                </option>
+              </select>
+            </div>
+          </form>
+        
+          <div [hidden]="selectedYear == null">
+            <div class='form-header'>
+              Pusmečiai
+            </div> 
+            <div class='trimester-list' *ngIf='selectedYear != null && selectedYear.trimesters.length > 0'>
+              <div class='trimester-item' *ngFor='let tri of selectedYear.trimesters; let i = index'>
+                <div class='trimester-name'>{{ i + 1 }} pusmetis</div>
+                <div class='trimester-date'>{{ tri.start_date }} - {{ tri.end_date }}</div>
+              </div>
+            </div>
+
+            <div class='form-text' *ngIf='selectedYear == null || selectedYear.trimesters.length == 0'>
+              Nėra sukurta jokių pusmečių
+            </div>
+
+            <div class='form-header'>
+              Naujas Pusmetis
+            </div> 
+
+            <form class='form-wide'>
+              <div class='form-group'>
+                <label>Pradžia: </label>
+                <input type='text' class='form-control' #startDatePicker required>
+              </div>
+              <div class='form-group'>
+                <label>Pabaiga: </label>
+                <input type='text' class='form-control' #endDatePicker required>
+              </div>
+              <div class="form-group">
+                  <input type="checkbox" class="form-check-control" id="migrateGroups" [(ngModel)]='migrateGroups' name='migrateGroups'>
+                  <label class="form-check-label" for="migrateGroups">Perkelti grupes iš praeito pusmečio</label>
+              </div>
+              <div class='form-buttons'>
+                <div class='btn btn-primary' (click)='saveTrimester()'>Išsaugoti</div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='tile'>
+
+      <div class='tile-header'>
+        Nauji mokslo metai
+      </div>
+
+      <div class='tile-content '>
+
+        <form class='form-wide'>
+          <div class='form-group'>
+            <label>Pradžia: </label>
+            <input type='text' class='form-control' #startYearDatePicker required>
+          </div>
+          <div class='form-group'>
+            <label>Pabaiga: </label>
+            <input type='text' class='form-control' #endYearDatePicker required>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" class="form-check-control" id="migrateClasses" [(ngModel)]='migrateClasses' name='migrateClasses'>
+            <label class="form-check-label" for="migrateClasses">Perkelti klases iš praeitų metų</label>
+          </div>
+          <div class='form-buttons'>
+            <div class='btn btn-primary' (click)='saveSchoolYear()'>Išsaugoti</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</div>

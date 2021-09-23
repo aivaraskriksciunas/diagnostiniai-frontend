@@ -1,0 +1,83 @@
+#main-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 10px;
+    justify-content: center;
+    align-items: flex-start;
+
+    background-color: #2d3436;
+    //background: linear-gradient( 145deg, #747d8c, #57606f );
+
+    #main-box {
+        background-color: white;
+        margin-top: 50px;
+        box-shadow: 5px 5px 0 rgba( 0, 0, 0, 0.1 );
+        padding: 0;
+
+        #main-box-padding {
+            padding: 40px 40px;
+        }
+    }
+}
+
+#school-title {
+    font-size: 22px;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+}
+
+#login-form{
+    margin-top: 30px;
+
+    .form-group {
+        
+        label {
+            display: block;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            //border: 1px solid rgb( 200, 200, 200 );
+            border: none;
+            background-color: #ecf0f1;
+            border-radius: 0;
+            font-family: 'Roboto';
+            font-size: 13px;
+            padding: 8px 10px;
+
+        }
+    }
+
+    
+
+    #login-btn-container {
+        margin-top: 40px;
+
+        #login-btn {
+            display: block;
+        }
+
+        .error-msg {
+            color: #d63031;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 15px;
+            font-family: 'PT Sans', sans-serif;
+        }
+    }
+}
+
+#loader {
+    display: flex;
+    justify-content: center;
+}
+
+#copyright {
+    font-size: 11px;
+    text-align: center;
+    padding: 6px;
+    background-color: darken( white, 10 );
+    font-style: italic;
+    color: rgb( 90, 90, 90 );
+}

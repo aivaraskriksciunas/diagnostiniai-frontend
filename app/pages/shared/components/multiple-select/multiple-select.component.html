@@ -1,0 +1,8 @@
+<div id='container' [style.maxHeight]="maxHeight + 'px'">
+  <app-multiple-select-item 
+    *ngFor='let item of items' 
+    (onClick)='onSelect( $event )' 
+    (onExpand)='onExpand( $event )'
+    [item]='item'>
+  </app-multiple-select-item>
+</div>

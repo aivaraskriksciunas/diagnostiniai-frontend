@@ -1,0 +1,30 @@
+@import './variables.styles.scss';
+
+.table {
+    background-color: white;
+
+    th { 
+        border-top: none;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        color: $primary;
+    }
+
+    tr {
+        border-bottom: 1px solid rgb( 230, 230, 230 );
+    }
+
+    td {
+        padding: 8px 12px;
+        vertical-align: middle;
+    }
+
+    .row-hover:hover {
+        cursor: pointer;
+        background-color: darken( white, 5 );
+    }
+}
+
+.table-shadow {
+    box-shadow: 0px 2px 10px rgb( 220, 220, 220 );
+}

@@ -1,0 +1,42 @@
+@import '../../styles/variables.styles.scss';
+
+.page-item {
+    box-shadow: 1px 2px 8px rgb( 200, 200, 200 );
+
+    .page-link {
+        border: none;
+        background-color: white;
+    
+        color: $primary;
+        padding: 12px;
+        border-radius: 0;
+    }
+
+    .page-link:hover {
+        background-color: #ced6e0;
+        cursor: pointer;
+
+    }
+
+    .active {
+        color: white;
+        background-color: $primary;
+    }
+
+    .active:hover {
+        background-color: lighten( $primary, 20 );
+    }
+    
+}
+
+.page-item:first-child {
+    .page-link {
+        border-radius: 2px 0 0 2px;
+    }
+}
+
+.page-item:last-child {
+    .page-link {
+        border-radius: 0 2px 2px 0;
+    }
+}

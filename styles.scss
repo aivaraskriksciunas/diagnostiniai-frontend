@@ -1,0 +1,15 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~flatpickr/dist/themes/light.css";
+
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Raleway|Roboto:400,500|PT+Sans');
+
+@import 'app/shared/styles/variables.styles.scss';
+@import 'app/shared/styles/dropdowns.styles.scss';
+@import 'app/shared/styles/buttons.styles.scss';
+@import 'app/shared/styles/tables.styles.scss';
+@import 'app/shared/styles/lists.styles.scss';
+@import 'app/shared/styles/forms.styles.scss';
+
+* {
+    font-family: 'Roboto', sans-serif;
+}

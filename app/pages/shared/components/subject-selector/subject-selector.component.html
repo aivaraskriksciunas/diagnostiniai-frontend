@@ -1,0 +1,15 @@
+<div>
+
+<select *ngIf='subjects.length > 0' class='form-control' (change)='onSubjectChange( $event )'
+    [value]='subject' name='subject'>
+  <option value='0' *ngIf='allowEmpty'>Pasirinkite dalyką</option>
+  <option *ngFor='let subject of subjects' [value]='subject.id'>
+    {{ subject.name }}
+  </option>
+</select>
+
+<p *ngIf='subjects.length == 0' style="margin-bottom: 0">
+  Dalykų nerasta
+</p>
+
+</div>

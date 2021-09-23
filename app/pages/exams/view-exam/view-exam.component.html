@@ -1,0 +1,51 @@
+
+<div>
+
+<div class='tile'>
+  <div class='tile-header'>Atsiskaitomasis darbas</div>
+  
+  <div class='tile-content' *ngIf='isLoading'>
+    Kraunamas atsiskaitomasis darbas...
+  </div>
+
+  <div class='tile-content' *ngIf='!isLoading'>
+    <form [formGroup]='form'>
+      <table class='table mt-3' formArrayName='grades'>
+        <tr>
+          <th>Eil. nr.</th>
+          <th>Pavardė</th>
+          <th>Vardas</th>
+          <th style='text-align: right'>Įvertinimas</th>
+        </tr>
+  
+        <tr *ngFor="let item of form.get( 'grades' ).controls; let i = index" [formGroupName]='i'>
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.get( 'last_name' ).value }}</td>
+          <td>{{ item.get( 'first_name' ).value }}</td>
+          <td style='display: flex; flex-direction: column; align-items: flex-end; justify-content: right'>
+            <input class='form-control form-control-sm' type='number' style='width: 80px' formControlName='grade'
+              [class.is-invalid]="item.get( 'grade' ).invalid"
+            >
+            <div class='form-error-container' 
+                *ngIf="item.get( 'grade' ).invalid && ( item.get( 'grade' ).dirty || item.get( 'grade' ).touched )">
+              <small class='form-text text-danger'
+                *ngIf="item.get( 'grade' ).errors.min">Minimalus taškų skaičius yra {{ exam.min_score }}</small>
+              <small class='form-text text-danger'
+                *ngIf="item.get( 'grade' ).errors.max">Maksimalus taškų skaičius yra {{ exam.max_score }}</small>
+            </div>
+          </td>
+        </tr>
+  
+        <tr *ngIf="form.get('grades').controls.length == 0">
+          <td>Nėra pridėta mokinių</td>
+        </tr>
+  
+      </table>
+    </form>
+    
+
+    <div class='btn btn-primary' (click)='saveGrades()'>Išsaugoti</div>
+  </div>
+</div>
+
+</div>

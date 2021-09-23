@@ -1,0 +1,93 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header pb-2'>Pasirinkti duomenis</div>
+
+      <div class='tile-content'>
+        <form class='form'>
+
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Dalykas: </label>
+            <div class='col-md-6'>
+              <app-subject-selector [(subject)]='subject' (change)='getStudentsExamList()'></app-subject-selector>
+            </div>
+          </div>
+
+          <div *ngIf='subject != 0'>
+            <div class='form-group row'>
+              <label class='col-md-3 text-right'>Mokiniai: </label>
+              <div class='col-md-6' *ngIf='!classesLoading'>
+                <app-multiple-select [items]='classesChoices' (change)='studentsSelected( $event )'>
+                </app-multiple-select>
+              </div>
+              <div *ngIf='classesLoading'>
+                <app-dots-loader></app-dots-loader>
+              </div>
+            </div>
+
+            <div class='form-group row' *ngIf='selectedStudents.length != 0'>
+              <label class='col-md-3 text-right'>Atsiskaitymai: </label>
+              <div class='col-md-6' *ngIf='!examsLoading'>
+                <app-multiple-select [items]='availableExamChoices' (change)='onExamSelect( $event )'>
+                </app-multiple-select>
+              </div>
+              <div *ngIf='examsLoading'>
+                <app-dots-loader></app-dots-loader>
+              </div>
+            </div>
+
+            <div class='form-group row'>
+              <label class='col-md-3 text-right'>Lygmuo: </label>
+              <div class='col-md-6' *ngIf='!examsLoading'>
+                <select class='form-control' [(ngModel)]='selectedLevel' name='levelSelect'>
+                  <option value='NEPATENKINAMAS'>Nepatenkinamas</option>
+                  <option value='PATENKINAMAS'>Patenkinamas</option>
+                  <option value='PAGRINDINIS'>Pagrindinis</option>
+                  <option value='AUKSTESNYSIS'>Aukštesnysis</option>
+                </select>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='col-md-3'></div>
+              <div class='form-buttons col'>
+                <div class='btn btn-primary' *ngIf='selectedExams.length > 0' (click)='getGraphData()'>Rodyti mokinius
+                </div>
+                <div class='btn btn-primary' *ngIf='selectedExams.length > 0' (click)='downloadGraphData()'>Atsisiųsti
+                  .xlsx failą</div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <div class='tile'>
+      <div class='tile-header'>Mokiniai</div>
+      <div *ngIf='chartLoading'>
+        <app-dots-loader></app-dots-loader>
+      </div>
+      <div class='tile-content content-padding' *ngIf='!chartLoading'>
+        <div *ngFor='let exam of result'>
+          {{ exam.name }} - taškai nuo {{ exam.min_score.toFixed( 1 ) }} iki {{ exam.max_score.toFixed( 1) }}. Atlikimo data: {{ exam.taken_at }}
+
+          <table class='table table-shadow mt-3'>
+            <tr>
+              <th>Mokinio vardas, pavardė</th>
+              <th>Gautas įvertinimas</th>
+            </tr>
+
+            <tr *ngFor='let student of exam.students'>
+              <td>{{ student.first_name }} {{ student.last_name }}</td>
+              <td>{{ student.points }}</td>
+            </tr>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

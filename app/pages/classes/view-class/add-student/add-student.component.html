@@ -1,0 +1,124 @@
+<div class='tile'>
+  <div class='tile-header'>
+    Pridėti mokinį prie klasės
+  </div>
+
+  <div class='tile-content'>
+    <div id='new-student-actions' *ngIf="addStudentAction == 'NONE'">
+      <div class='btn btn-success mr-3' (click)='startCreatingStudent()'>
+        <i class='fas fa-plus mr-2'></i>Sukurti mokinį
+      </div>
+      <div class='btn btn-success' (click)='startMovingStudent()'>
+        <i class='fas fa-arrow-right mr-2'></i>Perkelti mokinį iš kitos klasės
+      </div>
+    </div>
+
+    <div *ngIf="addStudentAction == 'CREATE_STUDENT'">
+      
+      <div class='row'>
+        <p class='col'>Čia jūs galite sukurti naują mokinį. Jeigu mokinys jau mokėsi mūsų mokykloje ir yra duomenų bazėje, rinkitės 
+          <span class='link' (click)='startMovingStudent()'>Perkelti mokinį iš kitos klasės</span></p>
+      </div>
+      
+      <form class='form' [formGroup]='createStudentForm'>
+        <!-- Student First Name Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Mokinio vardas: </label>
+          <div class='col-md-6'>
+            <input type='text' class='form-control' formControlName='first_name'>
+            <div class='form-error-container' 
+                *ngIf="firstName.invalid && ( firstName.dirty || firstName.touched )">
+              <small class='form-text text-danger'
+                *ngIf="firstName.errors.required">Mokinio vardas yra būtinas</small>
+            </div>
+          </div>
+        </div>
+        <!-- END Student First Name Input -->
+
+        <!-- Student Last Name Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Mokinio pavardė: </label>
+          <div class='col-md-6'>
+            <input type='text' class='form-control' formControlName='last_name'>
+            <div class='form-error-container' 
+                *ngIf="lastName.invalid && ( lastName.dirty || lastName.touched )">
+              <small class='form-text text-danger'
+                *ngIf="lastName.errors.required">Mokinio pavardė yra būtina</small>
+            </div>
+          </div>
+        </div>
+        <!-- END Student Last Name Input -->
+
+        <div class='row'>
+          <div class='col-md-3'></div>
+          <div class='form-buttons col'>
+            <div class='btn btn-success' (click)='createStudent()'>Išsaugoti</div>
+            <div class='btn btn-primary' (click)='cancelStudentAction()'>Atšaukti</div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div *ngIf="addStudentAction == 'MOVE_STUDENT'">
+      <div class='row'>
+        <p class='col'>Čia jūs galite surasti ir prie savo klasės pridėti jau egzistuojantį mokinį, arba perkelti mokinį iš kitos klasės į šią. Jeigu mokinys nebuvo pridėtas prie jokios klasės ir nėra duomenų bazėje, rinkitės 
+          <span class='link' (click)='startCreatingStudent()'>Sukurti naują mokinį</span></p>
+      </div>
+
+      <form class='form' [formGroup]='moveStudentForm'>
+        <!-- School Year Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Mokslo metai: </label>
+          <div class='col-md-6'>
+            <select class='form-control' formControlName='year' name='schoolYear'>
+              <option *ngFor='let year of schoolYearList' [value]='year.id'>
+                {{ year.start_year }} - {{ year.end_year }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <!-- END School Year Input -->
+
+        <!-- Class Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Klasė: </label>
+          <div class='col-md-6' style="display: flex; align-items: center">
+            <select class='form-control' formControlName='gradeGroup' name='class' *ngIf='classesList.length > 0'>
+              <option value='0'><i>Pasirinkite klasę</i></option>
+              <option *ngFor='let class of classesList' [value]='class.id'>
+                {{ class.grade }}{{ class.letter }}
+              </option>
+            </select>
+            <p *ngIf='classesList.length == 0' style="margin-bottom: 0">Klasių nerasta</p>
+          </div>
+        </div>
+        <!-- END Class Input -->
+
+        <!-- Class Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Mokinys: </label>
+          <div class='col-md-6' style="display: flex; align-items: center">
+            <select class='form-control' formControlName='student' name='student' *ngIf='classStudents.length > 0'>
+              <option value='0'><i>Pasirinkite mokinį</i></option>
+              <option *ngFor='let student of classStudents' [value]='student.id'>
+                {{ student.first_name }} {{ student.last_name }}
+              </option>
+            </select>
+            <p *ngIf='classStudents.length == 0' style="margin-bottom: 0">Mokinių nerasta</p>
+          </div>
+        </div>
+        <!-- END Class Input -->
+
+        <div class='row'>
+          <div class='col-md-3'></div>
+          <div class='form-buttons col'>
+            <div class='btn btn-success' (click)='moveStudent()'>Perkelti į šią klasę</div>
+            <div class='btn btn-primary' (click)='cancelStudentAction()'>Atšaukti</div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

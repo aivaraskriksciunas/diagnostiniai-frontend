@@ -1,0 +1,63 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header pb-2'>Pasirinkti duomenis</div>
+
+      <div class='tile-content'>
+        <form class='form'>
+          
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Dalykas: </label>
+            <div class='col-md-6'>
+              <app-subject-selector [(subject)]='subject' (change)='getStudentsExamList()'></app-subject-selector>
+            </div>
+          </div>
+
+          <div *ngIf='subject != 0'>
+            <div class='form-group row' >
+              <label class='col-md-3 text-right'>Mokiniai: </label>
+              <div class='col-md-6' *ngIf='!classesLoading'>
+                <app-multiple-select [items]='classesChoices' (change)='studentsSelected( $event )'></app-multiple-select>
+              </div>
+              <div *ngIf='classesLoading'>
+                <app-dots-loader></app-dots-loader>
+              </div>
+            </div>
+
+            <div class='form-group row' *ngIf='selectedStudents.length != 0'>
+              <label class='col-md-3 text-right'>Atsiskaitymai: </label>
+              <div class='col-md-6' *ngIf='!examsLoading'>
+                <app-multiple-select [items]='availableExamChoices' (change)='onExamSelect( $event )'></app-multiple-select>
+              </div>
+              <div *ngIf='examsLoading'>
+                <app-dots-loader></app-dots-loader>
+              </div>
+            </div>
+
+            <div class='row' >
+              <div class='col-md-3'></div>
+              <div class='form-buttons col'>
+                <div class='btn btn-primary' *ngIf='selectedExams.length > 0' (click)='getGraphData()' >Generuoti diagramą</div>
+                <div class='btn btn-primary' *ngIf='selectedExams.length > 0' (click)='downloadGraphData()' >Atsisiųsti .xlsx failą</div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+  
+    </div>
+    
+    <div class='tile' [style.display]="chart == null && !chartLoading ? 'none' : 'block'">
+
+      <div class='tile-header'>Diagrama</div>
+      <div *ngIf='chartLoading'>
+        <app-dots-loader></app-dots-loader>
+      </div>
+      <div class='tile-content content-padding' [style.display]="chartLoading ? 'none' : 'block'">
+        <canvas id="chart" height="100" #chartContext></canvas>
+      </div>
+    </div>
+  </div>
+</div>

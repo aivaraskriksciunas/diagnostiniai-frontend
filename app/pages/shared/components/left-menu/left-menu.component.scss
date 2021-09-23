@@ -1,0 +1,75 @@
+#left-menu {
+    width: 250px;
+    background-color: #282f3a;
+    
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    padding-top: 10px;
+    height: 100%;
+
+    .menu-item {
+        color: rgb(218, 220, 238);
+        padding: 10px 0 10px 10px;
+        margin: 2px 20px;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+
+    .menu-item:hover {
+        background-color: lighten( #282f3a, 20 );
+    }
+
+    
+}
+
+
+/*
+ *   Components for expanding menu item
+ *   Left outside of #left-menu so for compatibility with <app-expand-item>
+ */
+.menu-expand {
+    color: rgb(208, 210, 228);
+    padding: 10px 0 10px 10px;
+    margin: 2px 20px;
+    cursor: pointer;
+    border-radius: 2px;    
+}
+
+.menu-expand-content {
+
+    overflow: hidden;
+}
+
+.menu-expand-item {
+    color: rgb(169, 170, 182);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 5px 0 8px 10px;
+}
+
+.menu-expand-item:first-child {
+    margin-top: 10px;
+}
+
+.menu-expand-item:last-child {
+    margin-bottom: 5px;
+}
+
+.menu-expand-item:hover {
+    color: rgb(228, 224, 224);
+    background-color: lighten( #282f3a, 15 );
+}
+
+.menu-icon {
+    margin-right: 8px;
+    font-size: 15px;
+    width: 20px;
+    color: darken( rgb(208, 210, 228), 25 );
+}
+
+.menu-icon-light {
+    margin-right: 8px;
+    font-size: 12px;
+    color: rgb(208, 210, 228);
+}

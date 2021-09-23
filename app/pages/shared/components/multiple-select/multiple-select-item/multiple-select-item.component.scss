@@ -1,0 +1,70 @@
+
+.label {
+    display: flex;
+    padding: 5px 5px;
+
+    .checkbox {
+        width: 20px;
+        display: flex;
+        align-items: center;
+        color: #9575CD;
+        font-size: 15px;
+    }
+
+    .text {
+        font-size: 14px;
+        color: rgb( 100, 100, 100 );
+        flex: 1;
+        text-overflow: ellipsis;
+    }
+
+    .expander {
+        align-self: stretch;
+        align-items: center;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+
+        border-radius: 15px;
+        color: #6200EA;
+    }
+    .expander:hover {
+        background-color: #6200EA;
+        color: white;
+    }
+}
+
+
+
+.label:hover {
+    background-color: #ECEFF1;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #E8EAF6;
+}
+
+.selected:hover {
+    background-color: darken( #E8EAF6, 3 ) !important;
+}
+
+.item-children {
+    margin-left: 10px;
+    overflow: hidden;
+    border-left: 1px dashed rgb( 230, 230, 230 );
+}
+
+.item-children-loading {
+    padding-left: 20px;
+    font-size: 11px;
+    color: lighten( rgb( 100, 100, 100 ), 5 );
+    font-style: italic;
+}
+
+.item-children-error {
+    padding-left: 20px;
+    font-size: 11px;
+    color: lighten( #d50000, 5 );
+    font-style: italic;
+}

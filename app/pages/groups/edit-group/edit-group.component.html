@@ -1,0 +1,101 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header' *ngIf='group.id == null'>Nauja Grupė</div>
+      <div class='tile-header' *ngIf='group.id != null'>Redaguoti Grupę</div>
+      
+      <div class='tile-content' *ngIf='isTrimesterSelected'>
+
+        <form class='form' [formGroup]='form'>
+          
+          <!-- Subject input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Dalykas: </label>
+            <div class='col-md-6'>
+              <select class='form-control' formControlName='subject'>
+                <option *ngFor='let subject of subjects' [value]='subject.id' > 
+                  {{ subject.name }}
+                </option>
+              </select>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'subject' ).invalid && ( form.get( 'subject' ).dirty || form.get( 'subject' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'subject' ).errors.required">Dalykas yra privalomas</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Subject input -->
+
+          <!-- Teacher input -->
+          <div class='form-group row' *ngIf='isAdmin'>
+            <label class='col-md-3 text-right'>Mokytojas: </label>
+            <div class='col-md-6'>
+              <select class='form-control' formControlName='head_teacher'>
+                <option *ngFor='let teacher of users' [value]='teacher.id' > 
+                  {{ teacher.name }}
+                </option>
+              </select>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'head_teacher' ).invalid && ( form.get( 'head_teacher' ).dirty || form.get( 'head_teacher' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'head_teacher' ).errors.required">Mokytojas yra privalomas</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Teacher input -->
+
+          <!-- Name input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Pavadinimas: </label>
+            <div class='col-md-6'>
+              <input type='text' class='form-control' formControlName='name'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'name' ).invalid && ( form.get( 'name' ).dirty || form.get( 'name' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'name' ).errors.required">Grupės pavadinimas yra privalomas</small>
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'name' ).errors.maxlength">Grupės pavadinimas negali būti ilgesnis nei 10 simbolių</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Name input -->
+
+          <!-- Name input -->
+          <div class='form-group row' *ngIf='group.id == null'>
+            <div class='col-md-3'></div>
+            <div class='col-md-6 form-check-container'>
+              <input type="checkbox" class="form-check-input" id="redirectCheck" formControlName='should_open_group'>
+              <label class="form-check-label" for="redirectCheck">Atidaryti grupės puslapį po sukūrimo</label>
+            </div>
+          </div>
+          <!-- END Name input -->
+
+          <div class='row'>
+            <div class='col-md-3'></div>
+            <div class='form-buttons col'>
+              <div class='btn btn-primary' (click)='saveGroup()'>Išsaugoti</div>
+              <div class='btn btn-danger' (click)='confirmDeleteModal.open()' *ngIf='group.id != null && isAdmin'>Ištrinti grupę</div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+
+      <div class='tile-content' *ngIf='!isTrimesterSelected'>
+        <p>Prašome pasirinkti pusmetį, prie kurio pridėsite naują grupę</p>
+      </div>
+    </div>
+
+    <app-modal #confirmDeleteModal>
+      <modal-header>Ištrinti grupę</modal-header>
+      <modal-content>Ar tikrai norite ištrinti šią grupę? Tai pašalins visus šios grupės atsiskaitomuosius darbus ir pažymius, tačiau neištrins mokinių.</modal-content>
+      <modal-actions>
+        <div class='btn btn-primary mr-3' (click)='confirmDeleteModal.close()'>Atšaukti</div>
+        <div class='btn btn-danger' (click)='deleteGroup()'>Taip</div>
+      </modal-actions>
+    </app-modal>
+
+  </div>
+  
+</div>
+  

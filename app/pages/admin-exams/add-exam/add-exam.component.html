@@ -1,0 +1,102 @@
+<div>
+  <div class='tile'>
+    <div class='tile-header' >Sukurti testus grupėms</div>
+
+    <div class='tile-content'>
+
+      <form class='form' [formGroup]='form'>
+        
+        <!-- Name input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Pavadinimas: </label>
+          <div class='col-md-6'>
+            <input class='form-control' formControlName='name'>
+            <div class='form-error-container' 
+                *ngIf="form.get( 'name' ).invalid && ( form.get( 'name' ).dirty || form.get( 'name' ).touched )">
+              <small class='form-text text-danger'
+                *ngIf="form.get( 'name' ).errors.required">Pavadinimas yra privalomas</small>
+            </div>
+          </div>
+        </div>
+        <!-- END Name input -->
+
+        <!-- Min Mark Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Mažiausias taškų skaičius: </label>
+          <div class='col-md-6'>
+            <input type='number' class='form-control' formControlName='min_score'>
+            <div class='form-error-container' 
+                *ngIf="form.get( 'min_score' ).invalid && ( form.get( 'min_score' ).dirty || form.get( 'min_score' ).touched )">
+              <small class='form-text text-danger'
+                *ngIf="form.get( 'min_score' ).errors.required">Mažiausias taškų skaičius yra privalomas</small>
+              <small class='form-text text-danger'
+                *ngIf="form.get( 'min_score' ).errors.min">Mažiausias taškų skaičius negali būti neigiamas</small>
+            </div>
+          </div>
+        </div>
+        <!-- END Min Mark Input -->
+
+        <!-- Max Mark Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Maksimalus taškų skaičius: </label>
+          <div class='col-md-6'>
+            <input type='number' class='form-control' formControlName='max_score'>
+            <div class='form-error-container' 
+                *ngIf="form.get( 'max_score' ).invalid && ( form.get( 'max_score' ).dirty || form.get( 'max_score' ).touched )">
+              <small class='form-text text-danger'
+                *ngIf="form.get( 'max_score' ).errors.required">Maksimalus taškų skaičius yra privalomas</small>
+              <small class='form-text text-danger'
+                *ngIf="form.get( 'max_score' ).errors.min">Maksimalus taškų skaičius negali būti neigiamas</small>
+            </div>
+          </div>
+        </div>
+        <!-- END Max Mark Input -->
+
+        <!-- Taken At Input -->
+        <div class='form-group row'>
+          <label class='col-md-3 text-right'>Atlikimo data: </label>
+          <div class='col-md-6'>
+            <input type='text' class='form-control' formControlName='taken_at' flatpickr>
+            <div class='form-error-container' 
+                *ngIf="form.get( 'taken_at' ).invalid && ( form.get( 'taken_at' ).dirty || form.get( 'taken_at' ).touched )">
+              <small class='form-text text-danger'
+                *ngIf="form.get( 'taken_at' ).errors.required">Atlikimo data yra privaloma</small>
+            </div>
+          </div>
+        </div>
+        <!-- END Taken At Input -->
+
+        <div class="form-group row">
+          <div class='col-md-3'></div>
+          <div class='col-md-6 form-check-container'>
+            <input type="checkbox" class="form-check-control" id="is-final" name='is_diagnostinis' formControlName='is_diagnostinis'>
+            <label class="form-check-label" for="is-final">Darbas yra diagnostinis</label>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  <div class='tile'>
+    <div class='tile-header'>Pasirinkti grupes</div>
+    <div class='tile-content'>
+      <app-multiple-select [items]='availableGroups' maxHeight='250' (change)='groupsSelected($event)'></app-multiple-select>
+    </div>
+  </div>
+
+  <div class='d-flex'>
+    <div class='btn btn-success col' style='margin-right: 30px' (click)='createTests()' *ngIf='!isSavingExams'>
+      <i class='fas fa-plus mr-2'></i>Sukurti
+    </div>
+
+    <div class='col' *ngIf='isSavingExams' style='display: flex; justify-content: center'>
+      <div >
+        <app-dots-loader></app-dots-loader>
+        <p style='text-align: center'>{{ examsSaved }} / {{ groups.length }} </p>
+      </div>
+
+    </div>
+  </div>
+  
+</div>

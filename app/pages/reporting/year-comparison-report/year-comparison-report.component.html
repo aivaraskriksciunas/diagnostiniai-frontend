@@ -1,0 +1,71 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header pb-2'>Pasirinkti duomenis</div>
+
+      <div class='tile-content'>
+        <form class='form'>
+
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Dalykas: </label>
+            <div class='col-md-6'>
+              <app-subject-selector [(subject)]='subject'></app-subject-selector>
+            </div>
+          </div>
+
+          <div class='form-group row' >
+            <label class='col-md-3 text-right'>Gimnazijos klasė: </label>
+            <div class='col-md-6'>
+              <select class='form-control' [(ngModel)]='grade' name='grade'>
+                <option value='1'>1 klasė</option>
+                <option value='2'>2 klasė</option>
+                <option value='3'>3 klasė</option>
+                <option value='4'>4 klasė</option>
+              </select>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Pusmečiai: </label>
+            <div class='col-md-6'>
+              <app-multiple-select [items]='availableSemesters' (change)='onSemesterSelect( $event )'></app-multiple-select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class='col-md-3'></div>
+            <div class='col-md-6 form-check-container'>
+              <input type="checkbox" class="form-check-control" id="is-final" name='is_diagnostinis' [(ngModel)]='isDiagnostinis'>
+              <label class="form-check-label" for="is-final">Skaičiuoti tik diagnostinius</label>
+            </div>
+          </div>
+
+          <div class='row' >
+            <div class='col-md-3'></div>
+            <div class='form-buttons col'>
+              <div class='btn btn-primary' *ngIf='selectedSemesters.length > 0 && subject != 0' (click)='getGraphData()' >Generuoti diagramą</div>
+              <div class='btn btn-primary' *ngIf='selectedSemesters.length > 0 && subject != 0' (click)='downloadData()' >Atsisiųsti .xlsx</div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+    <div class='tile' [style.display]="( chart == null || isChartLoading ) ? 'none' : 'block'">
+      <div class='tile-header'>Diagrama</div>
+      <div class='tile-content content-padding' >
+          <canvas id="chart" height="140" #chartContext></canvas>
+      </div>
+    </div>
+
+    <div class='tile' *ngIf='isChartLoading'>
+      <div class='tile-header'>Kuriama Diagrama</div>
+      <div class='tile-content content-padding' >
+        <app-dots-loader></app-dots-loader>
+      </div>
+    </div>
+
+  </div>
+</div>

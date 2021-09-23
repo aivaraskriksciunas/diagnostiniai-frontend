@@ -1,0 +1,84 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header'>Pažangos lygių grupės</div>
+
+      <div class='tile-content'>
+
+
+        <div *ngIf='isLoading' class='tile-content'>
+          <p>Kraunami nustatymai...</p>
+        </div>
+
+        <form class='form' [formGroup]='form' *ngIf='!isLoading'>
+          <p>Čia galite nustatyti pažangos lygius, pagal kuriuos bus klasifikuojami mokiniai ir jų rezultatai. Kiekvienam lygiui įveskite skaičių nuo ir iki (%).</p>  
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Nepatenkinamas lygis: </label>
+            <div class='col-md-3'>
+              <input class='form-control' value='0' readonly type='number'>
+            </div>
+            <div class='col-md-3'>
+              <input class='form-control' formControlName='NEPATENKINAMAS_TO' type='number'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'NEPATENKINAMAS_TO' ).invalid && ( form.get( 'NEPATENKINAMAS_TO' ).dirty || form.get( 'NEPATENKINAMAS_TO' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'NEPATENKINAMAS_TO' ).errors.required">laukas yra privalomas</small>
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Patenkinamas lygis: </label>
+            <div class='col-md-3'>
+              <input class='form-control' [value]="+form.get( 'NEPATENKINAMAS_TO' ).value + 1" readonly type='number'>
+            </div>
+            <div class='col-md-3'>
+              <input class='form-control' formControlName='PATENKINAMAS_TO' type='number'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'PATENKINAMAS_TO' ).invalid && ( form.get( 'PATENKINAMAS_TO' ).dirty || form.get( 'PATENKINAMAS_TO' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'PATENKINAMAS_TO' ).errors.required">laukas yra privalomas</small>
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Pagrindinis lygis: </label>
+            <div class='col-md-3'>
+              <input class='form-control' [value]="+form.get( 'PATENKINAMAS_TO' ).value + 1" readonly type='number'>
+            </div>
+            <div class='col-md-3'>
+              <input class='form-control' formControlName='PAGRINDINIS_TO' type='number'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'PAGRINDINIS_TO' ).invalid && ( form.get( 'PAGRINDINIS_TO' ).dirty || form.get( 'PAGRINDINIS_TO' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'PAGRINDINIS_TO' ).errors.required">laukas yra privalomas</small>
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Aukštesnysis lygis: </label>
+            <div class='col-md-3'>
+              <input class='form-control' [value]="+form.get( 'PAGRINDINIS_TO' ).value + 1" type='number' readonly>
+            </div>
+            <div class='col-md-3'>
+              <input class='form-control' value='100' type='number' readonly>
+            </div>
+          </div>
+          
+          <div class='row' >
+            <div class='col-md-3'></div>
+            <div class='form-buttons col'>
+              <div class='btn btn-primary' (click)='saveLevelPrefs()' *ngIf='!form.errors?.levelBoundsOverlap'>Išsaugoti</div>
+              <div *ngIf='form.errors?.levelBoundsOverlap' class='text-danger'>Pažangos lygių grupės susikerta tarpusavyje.</div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</div>
+  

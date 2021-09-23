@@ -1,0 +1,62 @@
+@import '../../../shared/styles/variables.styles.scss';
+
+.tile {
+    background-color: white;
+    margin: 0 30px 30px 0;
+    box-sizing: border-box;
+    font-size: 13px;
+    box-shadow: 5px 3px 8px rgb( 225, 225, 225 );
+
+    align-self: flex-start;
+
+    .tile-header {
+        padding: 20px 30px 0px;
+
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #341f97;
+    }
+
+    .tile-subheader {
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 14px;
+        color: black;
+    }
+
+    .tile-content {
+        padding: 20px 30px; 
+    }
+}
+
+.tile-transparent {
+    background-color: none;
+}
+
+.column {
+    flex: 1;
+}
+
+.page-content {
+    display: flex;
+    width: 100%;
+}
+
+.table-list {
+    .list-item {
+        padding: 10px 30px;
+        font-size: 15px;
+        font-family: 'Roboto', sans-serif;
+    }
+}
+
+.list-hover {
+    .list-item:hover {
+        background-color: rgb( 245, 245, 245 );
+        cursor: pointer;
+    }
+}

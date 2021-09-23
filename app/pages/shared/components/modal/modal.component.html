@@ -1,0 +1,19 @@
+<div  *ngIf='isOpen'>
+  <div id='backdrop' (click)='_backdropClicked()'>
+
+    <div id='modal' class='tile' (mouseenter)='_mouseEnter()' (mouseleave)='_mouseLeave()'>
+      <div class='tile-header'>
+        <ng-content select='modal-header'></ng-content>
+      </div>
+
+      <div id='modal-container' class='tile-content'>
+        <ng-content select='modal-content'></ng-content>
+      </div>
+
+      <div id='modal-actions' class='tile-content'>
+        <ng-content select='modal-actions'></ng-content>
+      </div>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div>
+
+<div class='tile'>
+    <div class='tile-header'>
+        Filtruoti testus
+    </div>
+
+    <div class='tile-content'>
+        <app-multiple-select [items]='availableGroups' (change)='onGroupsSelected($event)'></app-multiple-select>
+        <div class='btn btn-primary mt-2' (click)='findTests()'>Rodyti darbus</div>
+    </div>
+</div>
+
+<div class='tile'>
+    <div class='tile-header'>
+        Atsiskaitomieji darbai
+    </div>
+
+    <div class='tile-content'>
+
+        <div class='btn btn-sm btn-success mb-3' 
+            [routerLink]="['add']">
+            <i class='fas fa-plus mr-2'></i>Pridėti
+        </div>
+
+        <div *ngIf='isExamsLoading'>
+            <app-dots-loader></app-dots-loader>
+        </div>
+
+        <div *ngIf='!isExamsLoading'>
+            <table class='table table-shadow'>
+                <tr>
+                    <th>Eil. nr.</th>
+                    <th>Pavadinimas</th>
+                    <th>Grupė</th>
+                    <th>Užpildyta</th>
+                    <th>Vidurkis</th>
+                </tr>
+        
+                <tr *ngFor='let exam of exams; let i = index'>
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                        <a [routerLink]="[ '../exam/view/' + exam.id ]">{{ exam.examName }}</a>
+                    </td>
+                    <td>{{ exam.groupName != null ? exam.groupName : "Prašome palaukti..." }}</td>
+                    <td>
+                        {{ exam.filledOut != null ? exam.filledOut + " / " : "Prašome palaukti..." }}
+                        {{ exam.studentsTotal != null ? exam.studentsTotal : '' }}
+                    </td>
+                    <td>{{ exam.average != null ? exam.average : "Prašome palaukti..." }}</td>
+                </tr>
+            </table>
+            
+            <app-paginator
+                [total]='totalResults'
+                [itemsPerPage]='resultsPerPage'
+                [page]='currentPage'
+                (pageChanged)='onPageChanged($event)'
+            ></app-paginator>
+        </div>
+
+    </div>
+
+</div>
+</div>

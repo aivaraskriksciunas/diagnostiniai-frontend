@@ -1,0 +1,62 @@
+@import './variables.styles.scss';
+
+.btn {
+    border-radius: 3px;
+    border: none;
+    box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.3 );
+    font-size: 14px;
+    padding: 8px 16px;
+    color: rgb( 230, 230, 230 );
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
+.btn-primary {
+    color: white;
+    background: linear-gradient( 0deg, $primary, darken( $primary, 5 ) );
+    
+}
+
+.btn-primary:hover {
+    background-color: darken( #3498db, 10 );
+}
+
+.btn-success {
+    color: white;
+    background-color: #05c46b;
+}
+
+.link, a {
+    color: #3498db;
+    cursor: pointer;
+}
+
+.link:hover, a:hover {
+    color: darken( #3498db, 10 )
+}
+
+.icon-btn {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.icon-btn:hover {
+    color: white;
+    border-radius: 100px;
+}
+
+.icon-btn-primary {
+    color: #3498db;
+}
+.icon-btn-primary:hover {
+    background-color: #3498db;
+}
+
+
+
+.icon-btn-danger {
+    color: #e74c3c;   
+}
+.icon-btn-danger:hover {
+    background-color: #e74c3c;
+}

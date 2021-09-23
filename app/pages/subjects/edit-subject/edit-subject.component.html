@@ -1,0 +1,26 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header' *ngIf='subject.id == null'>Naujas Dalykas</div>
+      <div class='tile-header' *ngIf='subject.id != null'>Redaguoti Dalyką</div>
+      
+      <div class='tile-content'>
+
+        <div class='form-wide'>
+
+          <form class='form-wide' [formGroup]='form'>
+            <div class='form-group'>
+              <label>Pavadinimas: </label>
+              <input type='text' class='form-control' formControlName='name'>
+            </div>
+            <div class='form-buttons'>
+              <div class='btn btn-primary' (click)='saveSubject()'>Išsaugoti</div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

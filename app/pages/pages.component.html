@@ -1,0 +1,50 @@
+
+<div id='window'>
+
+<div id='navbar'>
+  <div id='navbar-title'>
+    Diagnostiniai
+  </div>
+
+  <div id='navbar-right'>
+    <div id='trimester-dropdown'>
+      <app-dropdown class='dropdown' align='right'>
+        <dropdown-button>
+          {{ selectedTrimesterText }}
+          <i class='ml-1 fa fa-angle-down'></i>
+        </dropdown-button>
+        <dropdown-item *ngFor='let year of trimesterChoices' [clickable]='false'>
+          <dropdown-item [clickable]='false' style='font-style: italic;'>{{ year.start_year }} - {{ year.end_year }}</dropdown-item>
+          <dropdown-item *ngFor='let tri of year.trimesters' [value]='tri.id' (selected)='setTrimester( year, tri )'>
+            {{ tri.index }}
+          </dropdown-item>
+        </dropdown-item>
+      </app-dropdown>
+    </div>
+
+    <div id='navbar-username'>
+      {{ user.name }}
+    </div>
+
+    <a (click)='logout()' id='logout-link'>
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </div>
+</div>
+
+<div id='main-container'>
+  <app-left-menu></app-left-menu>
+
+  <div id='content'>
+    <router-outlet></router-outlet>
+  </div>
+
+
+  <div id='notification-container'>
+    <app-toast-notifications id='notifications'></app-toast-notifications>
+  </div>
+
+</div>
+
+
+</div>

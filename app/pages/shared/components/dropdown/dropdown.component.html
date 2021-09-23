@@ -1,0 +1,11 @@
+<div class='dropdown' (mouseleave)='onMouseLeave()' (mouseenter)='onMouseEnter()'>
+  <div class='dropdown-button' (click)='toggleOpen()'>
+    <ng-content select='dropdown-button' ></ng-content>
+  </div>
+
+  <div class='dropdown-content' *ngIf='isOpen'
+      [style.right]="align == 'right' ? 0 : null"
+      [style.left]="align == 'left' ? 0 : null">
+    <ng-content select='dropdown-item'></ng-content>
+  </div>
+</div>

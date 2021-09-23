@@ -1,0 +1,111 @@
+<form [formGroup]='form'>
+
+  <!-- Name input -->
+  <div class='form-group'>
+    <label>Vardas: </label>
+    <input type='text' class='form-control' id='_nameinput' 
+      placeholder='Vardas' formControlName='name' 
+      (keyup)='suggestUsername()'>
+    <div class='form-error-container' 
+        *ngIf="_name.invalid && ( _name.dirty || _name.touched )">
+      <small class='form-text text-danger'
+        *ngIf="_name.errors.required">Vardas yra privalomas</small>
+      <small class='form-text text-danger'
+        *ngIf="_name.errors.minlength">Vardas yra turi būti ilgesnis nei 5 simboliai</small>
+    </div>
+  </div>
+  <!-- END Name input -->
+
+  <!-- Username input -->
+  <div class='form-group'>
+    <label>Prisijungimo vardas: </label>
+    <!-- <div *ngIf='user == null'> -->
+      <input type='text' class='form-control'
+        placeholder='Prisijungimo vardas' formControlName='username' 
+        (keyup)='validateUsername()'>
+
+      <!-- Username validation messages -->
+      <small id="emailHelp" class="form-text text-danger" *ngIf='isUsernameTaken && !usernameValidationLoading'>
+        Vartotojo vardas užimtas. Rekomenduojamas vardas: 
+        <span id='username-suggest-link' (click)='setUsername( suggestedUsername )'>{{ suggestedUsername }}</span>
+      </small>
+      <small id="emailHelp" class="form-text text-muted" *ngIf='usernameValidationLoading'>
+        Tikrinamas vartotojo vardas...
+      </small>
+
+      <div class='form-error-container' 
+        *ngIf="_username.invalid && ( _username.dirty || _username.touched )">
+        <small class='form-text text-danger'
+          *ngIf="_username.errors.required">Vartotojo vardas yra privalomas</small>
+        <small class='form-text text-danger'
+          *ngIf="_username.errors.minlength">Vartotojo vardas yra turi būti ilgesnis nei 5 simboliai</small>
+      </div>
+    <!-- </div> -->
+
+    <!-- <input *ngIf='user != undefined'
+      type='text' class='form-control' 
+      formControlName='username' readonly> -->
+  </div>
+  <!-- END Username input -->
+
+
+  <!-- Password input -->
+  <div class='form-group'>
+    <label *ngIf='user == undefined' for='_password'>Slaptažodis</label>
+    <label *ngIf='user != undefined' for='_password'>Naujas slaptažodis</label>
+
+    <div class='d-flex flex-row align-items-center'>
+      <input [type]='passwordType' class='form-control' id='_password' 
+        placeholder='Slaptažodis' formControlName='password'>
+      <i class='fa fa-eye' id='view-password-btn' (mousedown)='showPassword()' (mouseup)='hidePassword()'></i> 
+    </div>
+    <div class='form-error-container' 
+        *ngIf="_password.invalid && ( _password.dirty || _password.touched )">
+      <small class='form-text text-danger'
+        *ngIf="_password.errors.required">Slaptažodis yra privalomas</small>
+    </div>
+
+  </div>
+  <!-- END Password input -->
+
+
+  <!-- Role input -->
+  <div class='form-group'>
+    <label >Vartotojo tipas</label>
+    <select class='form-control' id='_usertype'  formControlName='role'>
+      <option value='TEACHER'>Mokytojas</option>
+      <option value='ADMIN'>Administratorius</option>
+    </select>
+    <div class='form-error-container' 
+        *ngIf="_role.invalid && ( _role.dirty || _role.touched )">
+      <small class='form-text text-danger'
+        *ngIf="_role.errors.required">Vartotojo tipas yra privalomas</small>
+    </div>
+  </div>
+  <!-- END Role input -->
+
+  <div class='form-buttons'>
+    <div class='btn btn-success' (click)='onUserSave()'>
+      <span *ngIf='user == undefined'>Sukurti</span>
+      <span *ngIf='user != undefined'>Išsaugoti</span>
+    </div>
+
+    <div class='btn btn-danger' (click)='askDeleteUser()' *ngIf='user != null'>Ištrinti</div>
+
+    <div class='btn btn-primary' *ngIf='user != undefined' (click)='userCancel()'>
+      Atšaukti
+    </div>
+  </div>
+
+
+  <app-modal #confirmDeleteModal>
+    <modal-header>Ištrinti vartotoją</modal-header>
+    <modal-content>Ar tikrai norite ištrinti vartotoją {{ form.get( 'name' ) }}?</modal-content>
+    <modal-actions>
+      <div class='btn btn-primary mr-3' (click)='confirmDeleteModal.close()'>Atšaukti</div>
+      <div class='btn btn-danger' (click)='deleteUser()'>Taip</div>
+    </modal-actions>
+  </app-modal>
+  
+
+</form>

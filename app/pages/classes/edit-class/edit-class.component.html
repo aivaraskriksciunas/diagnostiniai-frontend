@@ -1,0 +1,108 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header' *ngIf='gradeGroup.id == null'>Nauja Klasė</div>
+      <div class='tile-header' *ngIf='gradeGroup.id != null'>Klasė</div>
+      
+      <div class='tile-content'>
+
+        <form class='form' [formGroup]='form'>
+
+          <!-- Grade input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Gimnazijos Klasė: </label>
+            <div class='col-md-6'>
+                <input type='number' min=1 max=4 class='form-control' formControlName='grade'>
+                <div class='form-error-container' 
+                    *ngIf="form.get( 'grade' ).invalid && ( form.get( 'grade' ).dirty || form.get( 'grade' ).touched )">
+                  <small class='form-text text-danger'
+                    *ngIf="form.get( 'grade' ).errors.required">Gimnazijos klasė yra privaloma</small>
+                  <small class='form-text text-danger'
+                    *ngIf="form.get( 'grade' ).errors.min || form.get( 'grade' ).errors.max">
+                    Gimnazijos klasės skaičius turi būti nuo 1 iki 4
+                  </small>
+                </div>
+            </div>
+          
+          </div>
+          
+          <!-- END Grade input -->
+
+          <!-- Letter Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Raidė: </label>
+            <div class='col-md-6'>
+              <input type='text' class='form-control' formControlName='letter'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'letter' ).invalid && ( form.get( 'letter' ).dirty || form.get( 'letter' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'letter' ).errors.required">Klasės raidė yra privaloma</small>
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'letter' ).errors.minlength || form.get( 'letter' ).errors.maxlength">
+                  Klasės raidė turi būti vienas simbolis
+                </small>
+              </div>
+            </div>
+            
+          </div>
+          <!-- END Letter Input -->
+
+          <!-- Head teacher input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Auklėtojas: </label>
+            <div class='col-md-6'>
+              <select formControlName='head_teacher' class='form-control'>
+                <option *ngFor='let usr of userList' [value]='usr.id'>
+                  {{ usr.name }} 
+                </option>
+              </select>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'head_teacher' ).invalid && ( form.get( 'head_teacher' ).dirty || form.get( 'head_teacher' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'head_teacher' ).errors.required">Auklėtojas yra privalomas</small>
+              </div>
+            </div>
+            
+          </div>
+          <!-- END Head teacher input -->
+
+          <!-- School year input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Mokslo metai: </label>
+            <div class='col-md-6'>
+              <select formControlName='school_year' class='form-control'>
+                <option *ngFor='let year of schoolYearList' [value]='year.id'>
+                  {{ year.start_year }} - {{ year.end_year }}
+                </option>
+              </select>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'school_year' ).invalid && ( form.get( 'school_year' ).dirty || form.get( 'school_year' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'school_year' ).errors.required">Mokslo metai yra privalomi</small>
+              </div>
+            </div>
+            
+          </div>
+          <!-- END School year input -->
+
+          <div class='form-group row' *ngIf='gradeGroup.id == null'>
+            <div class='col-md-3'></div>
+            <div class='col-md-6 form-check-container'>
+              <input type="checkbox" class="form-check-input" id="redirectCheck" formControlName='should_redirect'>
+              <label class="form-check-label" for="redirectCheck">Atidaryti klasės puslapį po sukūrimo</label>
+            </div>
+          </div>
+
+          <div class='row'>
+            <div class='col-md-3'></div>
+            <div class='form-buttons col'>
+              <div class='btn btn-primary' (click)='saveClass()'>Išsaugoti</div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</div>

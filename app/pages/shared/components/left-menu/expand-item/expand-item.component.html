@@ -1,0 +1,14 @@
+<div class='menu-expand'>
+
+  <div class='menu-expand-trigger' (click)='toggleExpanded()'>
+    {{ title }} 
+    <span class='fa fa-angle-down float-right' 
+        [@expandArrow]="expanded ? 'expanded' : 'closed'"
+        style='font-size: 16px'></span>
+  </div>
+
+  <div class='menu-expand-content' [@listExpand]="expanded ? 'expanded' : 'closed'">
+    <ng-content></ng-content>
+  </div>
+    
+</div>

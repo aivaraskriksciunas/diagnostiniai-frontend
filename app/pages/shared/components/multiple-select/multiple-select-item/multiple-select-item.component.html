@@ -1,0 +1,36 @@
+<div class='item'  *ngIf='item != null' >
+
+<div class='label' [class.selected]='item.state == SELECTED' (click)='clicked( item )'>
+    <div class='checkbox' *ngIf='item.selectable == null || item.selectable === true'>
+        <i class='far fa-square' *ngIf='item.state == null || item.state == NOT_SELECTED'></i>
+        <i class='fas fa-check-square' *ngIf=' item.state == SELECTED'></i>
+        <i class='fas fa-minus-square' *ngIf=' item.state == INDETERMINATE'></i>
+    </div>
+    <div class='text'>{{ item.text }}</div>
+
+    <div class='expander' *ngIf='( item.children != null && item.children.length > 0 ) || item.asyncChildrenLoader != null' (click)="expand($event)">
+        <i class='fas fa-chevron-down' [@expandCollapseChevron]="item.expanded ? 'expanded' : 'collapsed'"></i>
+    </div>
+</div>
+
+<div *ngIf='item.children != null' 
+        class='item-children' 
+        [@expandCollapse]="item.expanded ? 'expanded' : 'collapsed'">
+    <app-multiple-select-item
+        *ngFor='let child of item.children'
+        (onClick)='onClick.emit( $event )'
+        (onExpand)='onExpand.emit( $event )'
+        [item]='child'
+    ></app-multiple-select-item>
+
+</div>
+
+<div *ngIf='item._childrenLoading' class='item-children-loading'>
+    Kraunama...
+</div>
+
+<div *ngIf='item._childrenError && item._childrenError.length > 0' class='item-children-error'>
+    {{ item._childrenError }}
+</div>
+
+</div>

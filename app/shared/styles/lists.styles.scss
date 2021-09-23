@@ -1,0 +1,25 @@
+@import './variables.styles.scss';
+
+.list {
+    width: 100%;
+    box-shadow: 0px 2px 8px rgb( 220, 220, 220 );
+
+    .list-item {
+        padding: 8px 16px;
+        border-bottom: 1px solid rgb( 230, 230, 230 );
+        border-radius: 5px;
+
+    }
+
+    .list-item:last-child {
+        border-bottom: none;
+        border-radius: 5px 5px 0 0 ;
+    }
+
+    .list-item:hover {
+        background-color: rgba( $primary, 99 );
+        color: white;
+        cursor: pointer;
+        border-bottom: 0;
+    }
+}

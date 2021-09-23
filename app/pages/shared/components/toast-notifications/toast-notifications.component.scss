@@ -1,0 +1,42 @@
+@import '../../../../shared/styles/variables.styles.scss';
+
+.notification {
+    margin: 20px 20px;
+    min-width: 220px;
+    padding: 10px 20px;
+    box-shadow: 2px 2px 1px rgba( 0, 0, 0, 0.1 );
+    cursor: pointer;
+
+    .title {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        color: white;
+    }
+
+    .message {
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        color: rgb( 240, 240, 240 );
+    }
+}
+
+.success {
+    background-color: $success_green + cc;
+}
+.success:hover {
+    background-color: $success_green;
+}
+
+.danger {
+    background-color: $danger_red + cc;
+}
+.danger:hover {
+    background-color: $danger_red;
+}
+
+.info {
+    background-color: $light_blue + cc;
+}
+.info:hover {
+    background-color: $light_blue;
+}

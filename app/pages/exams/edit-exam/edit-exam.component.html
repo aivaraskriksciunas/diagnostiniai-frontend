@@ -1,0 +1,117 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header' *ngIf="this.exam == null || this.exam.id == null">Nauja Grupė</div>
+      <div class='tile-header' *ngIf="this.exam != null && this.exam.id != null">Taisyti Grupę</div>
+      
+      <div *ngIf='isLoading' class='tile-content'>
+        <p>Kraunamas testas...</p>
+      </div>
+
+      <div class='tile-content' *ngIf='!isLoading'>
+
+        <form class='form' [formGroup]='form'>
+          
+          <!-- Name input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Pavadinimas: </label>
+            <div class='col-md-6'>
+              <input class='form-control' formControlName='name'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'name' ).invalid && ( form.get( 'name' ).dirty || form.get( 'name' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'name' ).errors.required">Pavadinimas yra privalomas</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Name input -->
+          
+          <!-- Group Select -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Grupė: </label>
+            <div class='col-md-6'>
+              <select class='form-control' formControlName='group'>
+                <option *ngFor='let group of groups' [value]='group.id' >
+                  {{ group.grade }}{{ group.name | uppercase }}
+                </option>
+              </select>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'group' ).invalid && ( form.get( 'group' ).dirty || form.get( 'group' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'group' ).errors.required">Grupė yra privaloma</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Group select -->
+
+          <!-- Min Mark Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Mažiausias taškų skaičius: </label>
+            <div class='col-md-6'>
+              <input type='number' class='form-control' formControlName='min_score'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'min_score' ).invalid && ( form.get( 'min_score' ).dirty || form.get( 'min_score' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'min_score' ).errors.required">Mažiausias taškų skaičius yra privalomas</small>
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'min_score' ).errors.min">Mažiausias taškų skaičius negali būti neigiamas</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Min Mark Input -->
+
+          <!-- Max Mark Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Maksimalus taškų skaičius: </label>
+            <div class='col-md-6'>
+              <input type='number' class='form-control' formControlName='max_score'>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'max_score' ).invalid && ( form.get( 'max_score' ).dirty || form.get( 'max_score' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'max_score' ).errors.required">Maksimalus taškų skaičius yra privalomas</small>
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'max_score' ).errors.min">Maksimalus taškų skaičius negali būti neigiamas</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Max Mark Input -->
+
+          <!-- Taken At Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Atlikimo data: </label>
+            <div class='col-md-6'>
+              <input type='text' class='form-control' formControlName='taken_at' flatpickr>
+              <div class='form-error-container' 
+                  *ngIf="form.get( 'taken_at' ).invalid && ( form.get( 'taken_at' ).dirty || form.get( 'taken_at' ).touched )">
+                <small class='form-text text-danger'
+                  *ngIf="form.get( 'taken_at' ).errors.required">Atlikimo data yra privaloma</small>
+              </div>
+            </div>
+          </div>
+          <!-- END Taken At Input -->
+
+          <div class="form-group row">
+            <div class='col-md-3'></div>
+            <div class='col-md-6 form-check-container'>
+              <input type="checkbox" class="form-check-control" id="is-final" formControlName='is_diagnostinis'>
+              <label class="form-check-label" for="is-final">Darbas yra diagnostinis</label>
+            </div>
+          </div>
+          
+          <div class='row' >
+            <div class='col-md-3'></div>
+            <div class='form-buttons col'>
+              <div class='btn btn-primary' *ngIf='isTrimesterSelected' (click)='saveExam()'>Išsaugoti</div>
+              <div *ngIf='!isTrimesterSelected'>
+                <p>Prašome pasirinkti pusmetį, prie kurio pridėsite naują atsiskaitomąjį darbą</p>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+  
+</div>
+  

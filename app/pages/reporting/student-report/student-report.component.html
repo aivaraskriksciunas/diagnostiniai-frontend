@@ -1,0 +1,83 @@
+<div class='page-content'>
+  <div class='column'>
+    <div class='tile'>
+      <div class='tile-header pb-2'>Mokinio pažanga</div>
+
+      <div class='tile-content'>
+        <form class='form'>
+          <!-- Grade Group Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Klasė: </label>
+            <div class='col-md-6' *ngIf='!isGroupsLoading'>
+              <select *ngIf='groups.length > 0' class='form-control' 
+                  (change)='fetchStudents()' [(ngModel)]='selectedGroup' name='group'>
+                <option value='0'>Pasirinkite klasę</option>
+                <option *ngFor='let group of groups' [value]='group.id'>
+                  {{ group.grade }}{{ group.letter }}
+                </option>
+              </select>
+
+              <p *ngIf='groups.length == 0' style="margin-bottom: 0">
+                Klasių nerasta
+              </p>
+            </div>
+
+            <div class='col-md-6' *ngIf='isGroupsLoading'>
+              <app-dots-loader></app-dots-loader>
+            </div>
+          </div>
+          <!-- END Grade Group Input -->
+
+          <!-- Student Input -->
+          <div class='form-group row'>
+            <label class='col-md-3 text-right'>Mokinys: </label>
+            <div class='col-md-6' *ngIf='!isStudentsLoading'>
+              <select *ngIf='students.length > 0' class='form-control' 
+                  [(ngModel)]='selectedStudent' name='student'>
+                <option value='0'>Pasirinkite mokinį</option>
+                <option *ngFor='let student of students' [value]='student.id'>
+                  {{ student.last_name }} {{ student.first_name }} 
+                </option>
+              </select>
+
+              <p *ngIf='students.length == 0' style="margin-bottom: 0">
+                Mokinių nerasta
+              </p>
+            </div>
+
+            <div class='col-md-6' *ngIf='isStudentsLoading'>
+              <app-dots-loader></app-dots-loader>
+            </div>
+          </div>
+          <!-- END Student Input -->
+
+          <!-- Subject Input -->
+          <div class='form-group row' >
+            <label class='col-md-3 text-right'>Dalykai: </label>
+            <div class='col-md-6'>
+              <app-multiple-select [items]='subjectChoices' (change)='subjectsSelected( $event )'></app-multiple-select>
+            </div>
+          </div>
+          <!-- END Subject Input -->
+
+          <div class='row' >
+            <div class='col-md-3'></div>
+            <div class='form-buttons col'>
+              <div class='btn btn-primary' (click)='fetchTestResults()' >Generuoti diagramą</div>
+              <div class='btn btn-primary' (click)='downloadGraphData()' >Atsisiųsti .xlsx failą</div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+  
+    </div>
+
+    <div class='tile'>
+      <div class='tile-header'>Diagrama</div>
+      <div class='tile-content'>
+        <canvas id="chart" height="140px" #chart></canvas>
+      </div>
+    </div>
+  </div>
+</div>

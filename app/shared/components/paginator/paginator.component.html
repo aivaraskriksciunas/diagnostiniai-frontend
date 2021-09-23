@@ -1,0 +1,6 @@
+
+<ul class="pagination">
+  <li class="page-item" *ngFor='let p of links'>
+    <a class="page-link" [class.active]='p == currentPage' (click)='onPageSelected(p)'>{{ p }}</a>
+  </li>
+</ul>
